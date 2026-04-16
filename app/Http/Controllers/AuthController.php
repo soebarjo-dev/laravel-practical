@@ -87,12 +87,12 @@ class AuthController extends Controller
 
         // 4. SUKSES LOGIN
         // SIMPAN DATA DI SESSION
-        session([
+        $bindingSession = [
             'user_name' => $user->name,
             'user_email' => $user->email,
             'user_id' => $user->id
-        ]);
-
+        ];
+        session(['app-praktikal' => $bindingSession]);
 
         // REDIRECT
         return redirect()->route('dashboard.index');

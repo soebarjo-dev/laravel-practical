@@ -12,7 +12,15 @@
                     Mini Aplikasi
                 </div>
                 <nav>
-                    
+                    @foreach (config('menu') as $menu)
+                    <a 
+                        href="{{ route($menu['urlPage']) }}" 
+                        target="{{ $menu['isNewTab'] ? '_blank':'' }}" 
+                        class="block p-2 {{ request()->routeIs($menu['urlPage']) && (route($menu['urlPage']) === url()->current()) ? "bg-gray-400 hover:bg-gray-500":"block p-2 hover:bg-gray-700" }}"
+                    >
+                        {{ $menu['label'] }}
+                    </a>
+                    @endforeach
                 </nav>
             </aside>
             <div class="flex-1 flex flex-col">
@@ -21,7 +29,7 @@
                     <div class="relative">
                         <button onclick="toggleDropdown()" class="flex items-center space-x-2 bg-gray-100 px-2 py-1 hover:bg-gray-200 focus:outline-none">
                             <span class="text-gray-700 text-sm font-medium">
-                                
+                                Hi, {{ $metadata['user_name'] }}
                             </span>
                         </button>
 
@@ -31,8 +39,20 @@
                         </div>
                     </div>
                 </header>
-                <main class="p-2">
-                    <!-- CONTENT -->
+                <main class="p-2 flex-center">
+                    @if (session('success'))
+                        <div class="mb-4 p-3 bg-green-100 border border-green-300 text-green-700 text-sm">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 text-sm">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @include($subview)
                 </main>
             </div>
         </div>
