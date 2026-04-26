@@ -1,4 +1,4 @@
-<form method="POST" src="<?php echo e(route('')); ?>">
+<form method="POST" action="<?php echo e(route('register.index')); ?>">
     <?php echo csrf_field(); ?>
     <div class="mb-2">
         <label class="block text-gray-600 mb-1">Nama Lengkap</label>

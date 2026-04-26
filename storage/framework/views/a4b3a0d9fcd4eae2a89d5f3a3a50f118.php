@@ -12,15 +12,16 @@
                     Mini Aplikasi
                 </div>
                 <nav>
-                    @foreach (config('menu') as $menu)
+                    <?php $__currentLoopData = config('menu'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <a
-                        href="{{ route($menu['urlPage']) }}"
-                        target="{{ $menu['isNewTab'] ? '_blank':'' }}"
-                        class="block p-2 {{ request()->routeIs($menu['urlPage']) && (route($menu['urlPage']) === url()->current()) ? "bg-gray-400 hover:bg-gray-500":"block p-2 hover:bg-gray-700" }}"
+                        href="<?php echo e(route($menu['urlPage'])); ?>"
+                        target="<?php echo e($menu['isNewTab'] ? '_blank':''); ?>"
+                        class="block p-2 <?php echo e(request()->routeIs($menu['urlPage']) && (route($menu['urlPage']) === url()->current()) ? "bg-gray-400 hover:bg-gray-500":"block p-2 hover:bg-gray-700"); ?>"
                     >
-                        {{ $menu['label'] }}
+                        <?php echo e($menu['label']); ?>
+
                     </a>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </nav>
             </aside>
             <div class="flex-1 flex flex-col">
@@ -29,7 +30,8 @@
                     <div class="relative">
                         <button onclick="toggleDropdown()" class="flex items-center space-x-2 bg-gray-100 px-2 py-1 hover:bg-gray-200 focus:outline-none">
                             <span class="text-gray-700 text-sm font-medium">
-                                Hi, {{ $metadata['user_name'] }}
+                                Hi, <?php echo e($metadata['user_name']); ?>
+
                             </span>
                         </button>
 
@@ -40,30 +42,34 @@
                     </div>
                 </header>
                 <main class="p-2 flex-center">
-                    @if (session('success'))
+                    <?php if(session('success')): ?>
                         <div class="mb-4 p-3 bg-green-100 border border-green-300 text-green-700 text-sm">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                            <?php echo e(session('success')); ?>
 
-                    @if (session('error'))
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if(session('error')): ?>
                         <div class="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 text-sm">
-                            {{ session('error') }}
+                            <?php echo e(session('error')); ?>
+
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if ($errors->any())
-                        @foreach($errors->all() as $error)
+                    <?php if($errors->any()): ?>
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 text-sm">
-                                {{ $error }}
-                            </div>
-                        @endforeach
-                    @endif
+                                <?php echo e($error); ?>
 
-                    @include($subview)
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
+
+                    <?php echo $__env->make($subview, array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                 </main>
             </div>
         </div>
         <script src="assets/js/general.js"></script>
     </body>
 </html>
+<?php /**PATH /home/kaspian/Project/laravel-practical-main/resources/views/index-with-auth.blade.php ENDPATH**/ ?>

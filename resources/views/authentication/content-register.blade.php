@@ -1,4 +1,4 @@
-<form method="POST" src="{{ route('') }}">
+<form method="POST" action="{{ route('register.index') }}">
     @csrf
     <div class="mb-2">
         <label class="block text-gray-600 mb-1">Nama Lengkap</label>

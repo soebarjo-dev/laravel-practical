@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Master\{
     UserController,
     UnitController,
     ProductController,
-    CustomerController
+    CustomerController,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,11 @@ Route::middleware('custom.authentication')->group(function(){
             Route::resource('customers', CustomerController::class);
         });
     });
-    Route::get('/transactions', [DashboardController::class, 'index'])->name('transactions.index');
+    Route::prefix('transactions')->group(function(){
+        Route::get('/', [TransactionController::class, 'index'])->name('transactions.index');
+        Route::get('/create', [TransactionController::class, 'create'])->name('transactions.create');
+        Route::get('/{id}', [TransactionController::class, 'detail'])->name('transactions.detail');
+        Route::post('/', [TransactionController::class, 'store'])->name('transactions.store');
+    });
     Route::get('/reports', [DashboardController::class, 'index'])->name('reports.index');
 });
