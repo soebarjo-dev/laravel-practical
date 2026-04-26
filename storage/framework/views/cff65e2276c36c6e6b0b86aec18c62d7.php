@@ -1,0 +1,1 @@
+<?php /**PATH /Users/mekari/Downloads/laravel-practical-main/resources/views/master/users/detail.blade.php ENDPATH**/ ?>
